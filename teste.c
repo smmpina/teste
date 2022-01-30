@@ -4,7 +4,6 @@
 #include <ctype.h>
 #include <locale.h>
 
-void imp_double( double num, int tam, int dec );
 void inverte( char *str );
 void imp_num( double num, int largura, int precisao, int alinh );
 
@@ -69,41 +68,6 @@ void imp_num( double num, int largura, int precisao, int alinh )
 
     alinh ? printf( "%-*s", largura, dest ) :
             printf( "%*s", largura, dest ) ;
-}
-
-
-void imp_double( double num, int tam, int dec )
-{
-    int i;
-    char orig[ 60 ];
-    char dest[ 60 ];
-    char *po;
-    char *pd = dest;
-
-    sprintf( orig, "%#*.*lf", tam, dec, num );
-
-    po = orig;
-
-    while( *po ) po++;
-
-    for( po--; isdigit( *po ); po--, pd++ ) *pd = *po;
-
-    for( i = 0; po >= orig; i++, pd++, po-- )
-    {
-        if( i == 4 )
-        {
-            *pd++ = isspace( *po ) ? ' ' : '.';
-            i = 1;
-        }
-
-        *pd = *po;
-    }
-
-    *pd = '\0';
-
-    inverte( dest );
-
-    printf( "%s", dest );
 }
 
 void inverte( char *str )
